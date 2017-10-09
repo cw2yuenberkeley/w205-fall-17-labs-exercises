@@ -18,11 +18,14 @@ hive -f hospital_ownerships_transform.sql
 echo "Transforming Hospitals table"
 hive -f hospitals_transform.sql
 
-echo "Transforming HospitalSurveys table"
-hive -f hospital_surveys_transform.sql
+echo "Transforming Surveys table"
+hive -f surveys_transform.sql
 
-echo "Transforming ProcedureMeasures table"
-hive -f procedure_measures_transform.sql
+echo "Transforming HospitalSurveyResults table"
+hive -f hospital_survey_results_transform.sql
 
 echo "Transforming Procedures table"
-hive -f procedsures_transform.sql
+hive -f procedures_transform.sql
+
+echo "Transforming HospitalProcedureResults table"
+hive -f hospital_procedure_results_transform.sql

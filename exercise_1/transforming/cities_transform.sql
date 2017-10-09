@@ -5,7 +5,7 @@ FROM	hospital_base;
 
 DROP TABLE Cities;
 CREATE TABLE Cities AS
-SELECT	row_number() OVER () AS CityId
+SELECT	row_number() OVER () AS CityId,
 	Name
 FROM	Cities_tmp;
 

@@ -1,0 +1,10 @@
+DROP TABLE Surveys;
+CREATE TABLE Surveys (SurveyId int, Name String);
+INSERT INTO TABLE Surveys VALUES (1, 'Communication with Nurses');
+INSERT INTO TABLE Surveys VALUES (2, 'Communication with Doctors');
+INSERT INTO TABLE Surveys VALUES (3, 'Responsiveness of Hosital Staff');
+INSERT INTO TABLE Surveys VALUES (4, 'Pain Management');
+INSERT INTO TABLE Surveys VALUES (5, 'Communication about Medicines');
+INSERT INTO TABLE Surveys VALUES (6, 'Cleanliness And Quietness of Hosipital Environment');
+INSERT INTO TABLE Surveys VALUES (7, 'Discharge Information');
+INSERT INTO TABLE Surveys VALUES (8, 'Overall Rating of Hospital');

@@ -5,8 +5,8 @@ FROM	hospital_base;
 
 DROP TABLE HospitalTypes;
 CREATE TABLE HospitalTypes AS
-SELECT	row_number() OVER () AS HospitalTypeId
+SELECT	row_number() OVER () AS HospitalTypeId,
 	Name
-FROM	HospitalType_tmp;
+FROM	HospitalTypes_tmp;
 
 DROP TABLE HospitalTypes_tmp;

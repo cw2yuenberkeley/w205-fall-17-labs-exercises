@@ -1,6 +1,6 @@
 DROP TABLE Hospitals;
 CREATE TABLE Hospitals AS
-SELECT 	ProvideID AS HospitalId,
+SELECT 	ProviderID AS HospitalId,
 	HospitalName AS Name,
 	Address,
 	CI.CityId,

@@ -5,7 +5,7 @@ FROM	hospital_base;
 
 DROP TABLE Counties;
 CREATE TABLE Counties AS
-SELECT	row_number() OVER () AS CountyId
+SELECT	row_number() OVER () AS CountyId,
 	Name
 FROM	Counties_tmp;
 
