@@ -7,6 +7,7 @@ SELECT 	ProviderID AS HospitalId,
 	ST.StateId,
 	Zipcode,
 	CO.CountyId,
+	PhoneNumber,
 	HT.HospitalTypeId,
 	HO.HospitalOwnershipId,
 	EmergencyServices = "YES" AS HasEmergencyServcies

@@ -1,13 +1,9 @@
 DROP TABLE Procedures;
 CREATE TABLE Procedures AS
-SELECT	ProviderID AS HospitalId,
-	MeasureID AS ProcedureMeasureId,
-	Score,
-	Footnote
-FROM 	readmissions_and_deaths_base
-UNION ALL 
-SELECT 	ProviderID AS HospitalId,
-	MeasureID AS ProcedureMeasureId,
-	Score,
-	Footnote
-FROM 	timely_and_effective_care_base;
+SELECT	MeasureID AS ProcedureId,	
+	MeasureName AS Name,
+	MeasureStartQuarter AS StartQuarter,
+	TO_DATE(MeasureStartDate) AS StartDate,
+	MeasureEndQuarter AS EndQuarter,
+	TO_DATE(MeasureEndDate) AS EndDate
+FROM 	measure_dates_base;
