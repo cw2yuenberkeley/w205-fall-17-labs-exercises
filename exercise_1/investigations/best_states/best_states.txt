@@ -1,0 +1,52 @@
+-- Question:
+-- What states are models of high-quality care? 
+--
+-- Interpretation of the Question:
+-- - To aggregate procedure scores for a state, the scores need to be
+-- normalized. This means we need to normalize the scores by subtracting from
+-- the mean of the procedure score across hospitals and states and then divide
+by the standard deviation of the
+-- procedure score across hospitals and states.
+-- - Some states do not have many procedure scores available. We should
+-- exclude those states that do not have enough procedure scores as the
+-- aggregates for that hospital may be biased.
+--
+-- Approach:
+-- - Use the normalized score (Score where != -1 minue Avg score across
+-- hospitals, then divide by standard deviation score across hospitals).
+-- - Compute normalized score average, normalized score standard deviation and
+procedure
+-- score count
+-- - Filter out hospitals with SDNormalizedScore > 1.0 (e.g. hospitals with
+-- very high standard deviation in procedure scores) and filter out states
+with
+-- NumScores < 30 (e.g. states without enough procedure scores)
+-- - With the remaining states, pick the top 10 by AvgNormalizedScore
+--
+-- Intepretation of the Results:
+-- - AvgNormalizedScore - The selected top states are based on scores that are
+normalized. The
+-- average normalized score represents on average of how many standard
+-- deviations away from the average procedure score the hospital's procedure
+-- scores were.
+-- - SDNormalizedScore - The selected top states must have
+-- SDNormalizedScore < 1.0, meaning the standard deviation of the normalized
+scores must
+-- be less than 1 standard deviation.
+-- - NumScores - The selected top states must have NumScores > 30 meaning
+-- they must have more than 10 procedure scores available.
+
+Results:
+
+State	AvgNormalizedScore	SDNormalizedScore	NumScores
+---------------------------------------------------------------------------
+AR      0.11073509393735818     0.5611854406997574      2321
+NV      0.08776971619271066     0.47880873133494806     1173
+WV      0.07087230791010503     0.5014005400836565      1671
+KY      0.06446229107126626     0.5552906503574143      3262
+VA      0.06291004532766867     0.524717785020978       3691
+DC      0.05767490275229951     0.775170439529748       371
+NY      0.057270395657256536    0.5671954075152241      7537
+MS      0.05474459014709589     0.5052630926889985      2616
+MD      0.047871573100416974    0.577972429910529       1892
+NJ      0.04065066560744416     0.5336270859329333      3291

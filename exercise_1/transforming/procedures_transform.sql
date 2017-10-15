@@ -5,5 +5,7 @@ SELECT	MeasureID AS ProcedureId,
 	MeasureStartQuarter AS StartQuarter,
 	TO_DATE(MeasureStartDate) AS StartDate,
 	MeasureEndQuarter AS EndQuarter,
-	TO_DATE(MeasureEndDate) AS EndDate
-FROM 	measure_dates_base;
+	TO_DATE(MeasureEndDate) AS EndDate,
+	COUNT(DISTINCT Score) AS DistinctScores
+FROM 	measure_dates_base MDB INNER JOIN HospitalProcedureResults HPR ON MDB.MeasureID == HPR.ProcedureId
+GROUP BY MDB.MeasureID, MDB.MeasureName, MeasureStartQuarter, TO_DATE(MeasureStartDate), MeasureEndQuarter, TO_DATE(MeasureEndDate);

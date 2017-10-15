@@ -1,3 +1,10 @@
+DROP TABLE SurveyResults_tmp;
+CREATE TABLE SurveyResults_tmp AS
+SELECT	AVG(CAST(HcahpsBaseScore AS FLOAT)) AvgBaseScore,
+	STDDEV_POP(CAST(HcahpsBaseScore AS FLOAT)) SDBaseScore
+FROM	hvbp_hcahps_base 
+WHERE	HcahpsBaseScore != "Not Available";
+
 DROP TABLE SurveyResults;
 CREATE TABLE SurveyResults AS
 SELECT ProviderID AS HospitalId,
@@ -25,6 +32,10 @@ IF(DischargeInformationDimensionScore = "Not Available", -1, CAST(REGEXP_EXTRACT
 IF(CommunicationwithNursesAchievementPoints = "Not Available", -1, CAST(REGEXP_EXTRACT(OverallRatingOfHospitalAchievementPoints, '^([\\w\\-]+)', 1) AS INT)) AS OverallRatingOfHospitalAchievementPoints,
 IF(OverallRatingOfHospitalImprovementPoints = "Not Available", -1, CAST(REGEXP_EXTRACT(OverallRatingOfHospitalImprovementPoints, '^([\\w\\-]+)', 1) AS INT)) AS OverallRatingOfHospitalImprovementPoints,
 IF(OverallRatingOfHospitalDimensionScore = "Not Available", -1, CAST(REGEXP_EXTRACT(OverallRatingOfHospitalDimensionScore, '^([\\w\\-]+)', 1) AS INT)) AS OverallRatingOfHospitalDimensionScore,
-CAST(HcahpsBaseScore AS INT) AS BaseScore,
-CAST(HcahpsConsistencyScore AS INT) AS ConsistencyScore
-FROM hvbp_hcahps_base;
+IF(HcahpsBaseScore = "Not Available", -1,  CAST(HcahpsBaseScore AS INT)) AS BaseScore,
+IF(HcahpsBaseScore = "Not Available", -1, (CAST(HcahpsBaseScore AS FLOAT)-AvgBaseScore)/SDBaseScore) AS NormalizedBaseScore,
+IF(HcahpsConsistencyScore = "Not Available", -1, CAST(HcahpsConsistencyScore AS INT)) AS ConsistencyScore
+FROM hvbp_hcahps_base HHB
+FULL JOIN SurveyResults_tmp SRT;
+
+DROP TABLE SurveyResults_tmp;
